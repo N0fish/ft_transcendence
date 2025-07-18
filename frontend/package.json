@@ -1,0 +1,32 @@
+{
+  "name": "ft_trans",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.2",
+    "tailwindcss": "^4.0.6",
+    "typescript": "~5.7.2",
+    "vite": "^6.1.0"
+  },
+  "dependencies": {
+    "@babylonjs/core": "^7.52.3",
+    "@babylonjs/gui": "^7.52.3",
+    "@babylonjs/materials": "^7.52.3",
+    "@tailwindcss/postcss": "^4.0.6",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.0.6",
+    "@types/node": "^22.13.14",
+    "apexcharts": "^4.7.0",
+    "babylonjs": "^7.52.3",
+    "marked": "^15.0.7",
+    "vite-plugin-assets": "^0.2.0",
+    "ws": "^8.18.1"
+  }
+}

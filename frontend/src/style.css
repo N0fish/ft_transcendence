@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+    --color-accent: #E94560;
+    --color-primary: #16213E;
+    --color-primary-dark: #1A1A2E;
+    --color-secondary: #0F3460;
+    --color-light: #cacaca;
+    --color-pointer: #85c38a
+}
+
+#messages::-webkit-scrollbar {
+    width: 8px; 
+}
+
+#messages::-webkit-scrollbar-thumb {
+    background-color: #E94560; 
+    border-radius: 4px;
+    border: 2px solid #635e5e;
+}
+
+#messages::-webkit-scrollbar-track {
+    background: #635e5e;
+    border-radius: 4px;
+}
+
+#messages::-webkit-scrollbar-thumb:hover {
+    background-color: #E94560; 
+}
+
+body {
+    @apply bg-cover bg-center;
+    background-image: url('../public/backgrounds/empty_4k.png');
+}
+
+#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+button {
+    cursor: pointer;
+}
+
+.disk {
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border-radius: 50%;
+}
+
+.disk.online {
+    background-color: green;
+}
+.disk.offline {
+    background-color: red;
+}

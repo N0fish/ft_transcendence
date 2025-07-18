@@ -1,0 +1,21 @@
+{
+  "name": "stats-service",
+  "version": "1.0.0",
+  "description": "Stats microservice for ft_transcendence",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "fastify": "^4.29.0",
+    "@fastify/swagger": "^8.15.0",
+    "@fastify/swagger-ui": "^1.10.2",
+    "@fastify/cors": "8.2.0",
+    "better-sqlite3": "^11.9.1",
+    "dotenv": "^16.5.0",
+    "axios": "^1.8.4",
+    "https": "^1.0.0"
+  }
+}

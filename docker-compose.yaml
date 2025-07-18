@@ -1,0 +1,116 @@
+version: '3'
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - ft_transcendence_network
+    depends_on:
+      - auth-service
+      - game-service
+      - tournament-service
+      - user-service
+    env_file:
+      - ./frontend/.env
+    environment:
+      - VITE_LOCAL_IP=${LOCAL_IP}
+    volumes:
+        - ./frontend:/app
+        - /app/node_modules
+        - ./certs:/certs
+
+  auth-service:
+    build: ./backend/services/auth-service
+    ports:
+      - "3001:3001"
+    command: "npm start > /app/logs/auth-service.log 2>&1"
+    env_file:
+      - ./backend/services/auth-service/.env
+    volumes:
+      - ./backend/services/auth-service/uploads:/app/uploads
+      - ./backend/services/auth-service/logs:/app/logs
+      - ./backend/services/auth-service/prisma/data:/app/prisma/data
+      - ./certs:/certs
+    networks:
+      - ft_transcendence_network
+
+  game-service:
+    build: ./backend/services/game-service
+    ports:
+      - "4004:4004"
+    command: "node src/server.js > logs/game-service.log 2>&1"
+    env_file:
+      - ./backend/services/game-service/.env
+    volumes:
+      - ./backend/services/game-service:/app
+      - /app/node_modules
+      - ./certs:/certs
+    networks:
+      - ft_transcendence_network
+
+  matchmaking-service:
+    build: ./backend/services/matchmaking-service
+    ports:
+      - "3003:3003"
+    command: "node src/server.js > logs/matchmaking-service.log 2>&1"
+    env_file:
+      - ./backend/services/matchmaking-service/.env
+    volumes:
+      - ./backend/services/matchmaking-service:/app
+      - /app/node_modules
+      - ./certs:/certs
+    networks:
+      - ft_transcendence_network
+
+  stats-service:
+    build: ./backend/services/stats-service
+    ports:
+      - "4100:4100"
+    command: "node src/server.js > logs/stats-service.log 2>&1"
+    env_file:
+      - ./backend/services/stats-service/.env
+    volumes:
+      - ./backend/services/stats-service:/app
+      - /app/node_modules
+      - ./certs:/certs
+    networks:
+      - ft_transcendence_network
+
+  tournament-service:
+    build: ./backend/services/tournament-service
+    ports:
+      - "3004:3004"
+    command: "npm start > logs/tournament-service.log 2>&1"
+    env_file:
+      - ./backend/services/tournament-service/.env
+    volumes:
+      - ./backend/services/tournament-service:/app
+      - ./backend/services/tournament-service/logs:/app/logs
+      - ./backend/services/tournament-service/prisma/data:/app/prisma/data
+      - ./certs:/certs
+    depends_on:
+      - user-service
+      - game-service
+      - stats-service
+    networks:
+      - ft_transcendence_network
+
+  user-service:
+    build: ./backend/services/user-service
+    ports:
+      - "3002:3002"
+    command: "npm start > /app/logs/user-service.log 2>&1"
+    env_file:
+      - ./backend/services/user-service/.env
+    volumes:
+      - ./backend/services/user-service/uploads:/app/uploads
+      - ./backend/services/user-service/logs:/app/logs
+      - ./backend/services/user-service/prisma/data:/app/prisma/data
+      - ./certs:/certs
+    networks:
+      - ft_transcendence_network
+
+networks:
+  ft_transcendence_network:
+    driver: bridge

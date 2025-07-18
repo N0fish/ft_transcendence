@@ -1,0 +1,66 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+model Profile {
+  userId            Int             @id
+  username          String          @unique
+  avatar            String          @default("default_avatar.png")
+  status            String          @default("offline")
+  rating            Int             @default(1200)
+  bio               String?
+  name              String?
+  friends           Friend[]        @relation("UserFriends")
+  reverseFriends    Friend[]        @relation("FriendOf")
+  blockedUsers      BlockedUser[]   @relation("UserBlocked")
+  blockedBy         BlockedUser[]   @relation("BlockedBy")
+  sentRequests      FriendRequest[] @relation("SentRequests")
+  receivedRequests  FriendRequest[] @relation("ReceivedRequests")
+  lastAction        DateTime @default(now()) @updatedAt
+}
+
+model Friend {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  friendId  Int
+  user      Profile @relation("UserFriends", fields: [userId], references: [userId])
+  friend    Profile @relation("FriendOf", fields: [friendId], references: [userId])
+  @@unique([userId, friendId])
+}
+
+model BlockedUser {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  blockedId    Int
+  user         Profile  @relation("UserBlocked", fields: [userId], references: [userId])
+  blocked      Profile  @relation("BlockedBy", fields: [blockedId], references: [userId])
+  createdAt    DateTime @default(now())
+  @@unique([userId, blockedId])
+}
+
+model FriendRequest {
+  id          Int      @id @default(autoincrement())
+  senderId    Int
+  receiverId  Int
+  status      String   @default("pending") // "pending", "accepted", "declined"
+  createdAt   DateTime @default(now())
+  sender      Profile  @relation("SentRequests", fields: [senderId], references: [userId])
+  receiver    Profile  @relation("ReceivedRequests", fields: [receiverId], references: [userId])
+  @@unique([senderId, receiverId])
+}
+
+model Match {
+  id            Int      @id @default(autoincrement())
+  player1Id     Int
+  player2Id     Int
+  winnerId      Int
+  score         String   // JSON string of scores
+  duration      String
+  playedAt      DateTime @default(now())
+}

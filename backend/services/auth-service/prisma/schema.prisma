@@ -1,0 +1,26 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+model User {
+  id               Int      @id @default(autoincrement())
+  username         String   @unique
+  email            String   @unique
+  password         String   // bcrypt hash
+  createdAt        DateTime @default(now())
+}
+
+model TwoFA {
+  id                Int      @id @default(autoincrement())
+  email             String
+  type              String
+  data              String
+  createdAt         DateTime @default(now())
+  validatedAt       DateTime?
+}

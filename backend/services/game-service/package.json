@@ -1,0 +1,31 @@
+{
+  "name": "game-service",
+  "version": "1.0.0",
+  "description": "Game microservice for ft_transcendence",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@fastify/cors": "^8.0.0",
+    "@fastify/swagger": "^8.15.0",
+    "@fastify/swagger-ui": "^1.10.2",
+    "@fastify/websocket": "10.0.1",
+    "axios": "^1.8.4",
+    "better-sqlite3": "^11.9.1",
+    "dotenv": "^16.5.0",
+    "fastify": "^4.29.0",
+    "https": "^1.0.0",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.10",
+    "uuid": "^11.1.0",
+    "ws": "^8.18.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,56 @@
+// prisma/schema.prisma
+
+datasource db {
+  provider = "sqlite"
+  url = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+model Tournament {
+  id              Int                     @id @default(autoincrement())
+  name            String
+  status          String                  @default("waiting") // waiting, in_progress, completed
+  maxPlayers      Int                     @default(4)
+  createdAt       DateTime                @default(now())
+  winnerId        Int?
+  ownerUserId     Int?
+  matches         TournamentMatch[]
+  participants    TournamentParticipant[]
+  endedAt        DateTime?
+}
+
+model TournamentMatch {
+  id           Int        @id @default(autoincrement())
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId Int
+  round        Int
+  player1Id    Int
+  player2Id    Int
+  winnerId     Int?
+  score        String?    // e.g. "11-6"
+  playedAt     DateTime?
+}
+
+model TournamentParticipant {
+  id           Int        @id @default(autoincrement())
+  tournament   Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  tournamentId Int
+  userId       Int
+  username     String
+  joinedAt     DateTime   @default(now())
+
+  @@unique([tournamentId, userId])
+}
+
+model SingleMatch {
+  id        Int      @id @default(autoincrement())
+  player1Id Int
+  player2Id Int
+  winnerId  Int
+  score     String   // e.g. "11-5"
+  playedAt  DateTime @default(now())
+}

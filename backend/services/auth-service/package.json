@@ -1,0 +1,34 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "description": "Authentication microservice for ft_transcendence",
+  "main": "server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy",
+    "prisma:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@fastify/cors": "^8.3.0",
+    "@fastify/jwt": "^7.2.0",
+    "@fastify/static": "^6.12.0",
+    "@prisma/client": "^6.6.0",
+    "axios": "^1.4.0",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.5.0",
+    "fastify": "^4.22.0",
+    "fastify-plugin": "^4.5.1",
+    "node-vault": "^0.10.2",
+    "nodemailer": "^6.10.1",
+    "qrcode": "^1.5.3",
+    "speakeasy": "^2.0.0",
+    "zod": "^3.22.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prisma": "^6.6.0"
+  }
+}
