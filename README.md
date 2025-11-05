@@ -225,9 +225,9 @@ API.
 ## Authors
 Developer, Frontend, DevOps, microservices, game logic, tournament system, game statistics, auth service, user profiles, 2FA & JWT, etc.  
 Made with 🤍 by:
-- [algultse](https://github.com/N0fish)
-- [urosby](https://github.com/KarinaLogvina)
-- [econtess](https://github.com/eddard-contessa)
+- [algultse](https://github.com/N0fish) - Developer
+- [urosby](https://github.com/KarinaLogvina) - Frontend
+- [econtess](https://github.com/eddard-contessa) - DevOps
 
 
 |                          |                            |
